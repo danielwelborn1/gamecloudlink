@@ -1,52 +1,58 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Under Construction</title>
-		
-		<style>
-			body { margin: 0; }
-			canvas { width: 50%; height: 50% }
-		</style>
-	
-	</head>
-	<body>
-		<script src="three.js"></script>
-		<script>
+  <head>
+    <meta charset="utf-8" />
+    <title>HTML5 Pacman</title>
+    
+    <style type="text/css">
+      @font-face {
+	    font-family: 'BDCartoonShoutRegular';
+        src: url('BD_Cartoon_Shout-webfont.ttf') format('truetype');
+	    font-weight: normal;
+	    font-style: normal;
+      }
+      #pacman {
+        height:450px;
+        width:342px;
+        margin:20px auto;
+      }
+      #shim { 
+        font-family: BDCartoonShoutRegular; 
+        position:absolute;
+        visibility:hidden
+      }
+      h1 { font-family: BDCartoonShoutRegular; text-align:center; }
+      body { width:342px; margin:0px auto; font-family:sans-serif; }
+      a { text-decoration:none; }
+    </style>
 
+</head>
 
+<body>
+  
+  <div id="shim">shim for font face</div>
 
-			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+  <h1>HTML5 Pacman</h1>
 
-			var renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
+  <a href="http://arandomurl.com/">Writeup</a> |
+  Code on <a href="http://arandomurl.com/">Github</a>
 
-			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			var cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
+  <div id="pacman"></div>
+  <script src="pacman.js"></script>
+  <script src="modernizr-1.5.min.js"></script>
 
-			camera.position.z = 5;
+  <script>
 
-			var render = function () {
-				requestAnimationFrame( render );
+    var el = document.getElementById("pacman");
 
-				cube.rotation.x += 0.1;
-				cube.rotation.y += 0.1;
+    if (Modernizr.canvas && Modernizr.localstorage && 
+        Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
+      window.setTimeout(function () { PACMAN.init(el, "./"); }, 0);
+    } else { 
+      el.innerHTML = "Sorry, needs a decent browser<br /><small>" + 
+        "(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>";
+    }
+  </script>
 
-				renderer.render(scene, camera);
-			};
-
-			render();
-		</script>
-
-
-
-
-
-
-
-		
-	</body>
+</body>
 </html>
